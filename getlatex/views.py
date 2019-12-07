@@ -8,14 +8,12 @@ import json
 def renderlatex(request, expr):
 	query = LaTeXExpr.objects.filter(expression=expr)
 	if query.exists():
-		print("cached")
 		latexExpr = query.first()
 		svg_data = latexExpr.svg_data
 		latexExpr.accesses += 1
 		latexExpr.save()
 		return HttpResponse(svg_data,content_type="image/svg+xml")
 	else:
-		print("not cached")
 		data = {
 	            "format": "TeX",
 	            "math": expr,
@@ -31,7 +29,9 @@ def renderlatex(request, expr):
 	        }
 		jsondata = json.dumps(data)
 		r = requests.post(url="http://localhost:8003",data=jsondata)
+		print(r.status_code)
 		svg_data=r.text
-		new_expr = LaTeXExpr(expression=expr, svg_data=svg_data)
-		new_expr.save()
+		if r.status_code == 200:
+			new_expr = LaTeXExpr(expression=expr, svg_data=svg_data)
+			new_expr.save()
 		return HttpResponse(svg_data,content_type="image/svg+xml")
