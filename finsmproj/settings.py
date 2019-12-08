@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'getlatex.apps.GetlatexConfig',
+    'accounts.apps.AccountsConfig',
+    'machinestore.apps.MachinestoreConfig',
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -119,3 +123,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='49037941289-2kqce8sn9tojm4dqvhprm8ejv0kvjic2.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1u89DPEc-wZcAuHqxyGy_oZN' #Paste Secret Key

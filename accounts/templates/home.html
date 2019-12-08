@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <p class="display-4">Hello, {{ user.username }}, email: {{ user.email }}</p>
+        <p>Machines:</p>
+        {% for machine in machines %}
+            <div>
+                <h5>machine.name</h5>
+                <h6>machine.pub_date</h6>
+            </div>
+        {% endfor %}
+        <p><a class="lead" href="{% url 'logout' %}">Log out</a></p>
+    {% else %}
+        <a class="lead" href="{% url 'login' %}">Log in</a>
+    {% endif %}
+{% endblock content %}
