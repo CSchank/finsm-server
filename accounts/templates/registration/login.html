@@ -2,13 +2,8 @@
 
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-<br>
-<p><strong>-- OR --</strong></p>
-<a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+<h2>Log into finsm.io</h2>
+<h5>Log in to save and load machines.</h5>
+<b>2FA3 users: use McMaster email Google Account</b>
+<a href="{% url 'social:begin' 'google-oauth2' %}"><img width="250px" style="text-align:center;" src="/static/google_signin.png"></a><br>
 {% endblock %}

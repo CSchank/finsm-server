@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>finsm - create and simulate finite state machines</title>
+    <link rel="icon" href="favicon.ico?v=1" />
+    <script src="finsm.min.js"></script>
+</head>
+
+<body>
+<div id="elm"></div>
+<script>
+  var app = Elm.Main.init({
+    node: document.getElementById('elm')
+  });
+
+    var win;
+    app.ports.launchLogin.subscribe(function(data) {
+
+    var w = 500;
+    var h = 600;
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+
+      win = window.open("/accounts/login/",
+       "loginWindow","status=1,width="+w+",height="+h+", top="+top+", left="+left);
+    });
+
+    app.ports.launchLogout.subscribe(function(data) {
+      win = window.open("/accounts/logout/",
+       "logoutWindow","status=1,width=500,height=500");
+    });
+
+    function completed() {
+        win.close();
+        app.ports.loginComplete.send(null);
+    }
+  </script>
+</body>
+</html>

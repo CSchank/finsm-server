@@ -15,15 +15,19 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9n7572o^+$d$gs%p*1ju=oci_slfhospcrus#afqmuvx@5vnuz'
+SECRET_KEY = os.getenv('FINSM_SECRET','9n7572o^+$d$gs%p*1ju=oci_slfhospcrus#afqmuvx@5vnuz')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not 'FINSM_PROD' in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'getlatex.apps.GetlatexConfig',
     'accounts.apps.AccountsConfig',
+    'finsm_frontend.apps.FinsmFrontendConfig',
     'machinestore.apps.MachinestoreConfig',
     'social_django',
 
@@ -48,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -134,4 +139,6 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='49037941289-2kqce8sn9tojm4dqvhprm8ejv0kvjic2.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1u89DPEc-wZcAuHqxyGy_oZN' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'FVnP6TMIHe63kth75PVLIQpt' #Paste Secret Key
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 'prompt': 'select_account' }
