@@ -139,6 +139,6 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='49037941289-2kqce8sn9tojm4dqvhprm8ejv0kvjic2.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'FVnP6TMIHe63kth75PVLIQpt' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('FINSM_OAUTH2SECRET') #Paste Secret Key
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 'prompt': 'select_account' }

@@ -5,6 +5,8 @@ from django.contrib import admin
 from .models import Machine
 
 class MachinestoreAdmin(admin.ModelAdmin):
+    list_display = ('id','user','name','create_date','edit_date')
+
     readonly_fields = ('create_date',)
 
 # Register your models here.

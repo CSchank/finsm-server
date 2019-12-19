@@ -59,7 +59,7 @@ def savemachine(request):
                     saveResponse = { "success": False, "uuid": "" }
                     return HttpResponse(json.dumps(saveResponse), status=401)
             except (Machine.DoesNotExist):  # machine does not exist for some reason, so create a new one
-                new_machine = Machine(name=name, description=desc, machine=machine, user=request.user, tape_json = input_tape)
+                new_machine = Machine(name=name, description=desc, machine_json=machine, user=request.user, tape_json = input_tape)
                 newuuid = str(new_machine.id)
                 new_machine.save()
 
