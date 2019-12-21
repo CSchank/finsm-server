@@ -4,6 +4,6 @@
 {% block content %}
 <h2>Log into finsm.io</h2>
 <h5>Log in to save and load machines.</h5>
-<b>2FA3 users: use McMaster email Google Account</b>
+<p>Your Google account password is not accessible to finsm.io.<br><b>2FA3 users: use McMaster email Google Account</b></p>
 <a href="{% url 'social:begin' 'google-oauth2' %}"><img width="250px" style="display:block;margin-left:auto;margin-right:auto;" src="/static/google_signin.png"></a><br>
 {% endblock %}
