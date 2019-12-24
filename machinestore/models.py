@@ -14,3 +14,4 @@ class Machine(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
     machine_json = models.TextField(default="")
     tape_json = models.TextField(default="")
+    archived = models.BooleanField(default=False)

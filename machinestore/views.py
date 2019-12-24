@@ -13,16 +13,16 @@ def home(request):
 
 def listmachines(request):
     if request.user.is_authenticated and request.method == "POST":
-        machines = Machine.objects.get(user=request.user)
+        machines = Machine.objects.filter(user=request.user, archived=False).order_by("-edit_date")
 
-        machineDicts = []
-        for m in machines:
-            machineDicts.append({ "id" : m.id, "name" : m.name, "date": m.date.edit_date.timestamp(), "desc": m.desc })
-
-        machinesJson = json.dumps(machineDicts)
-
-        return HttpResponse(machinesJson)
-
+        machineDicts = [{ "v":      1
+                        , "id":     str(m.id)
+                        , "name":   m.name
+                        , "date":   int(m.edit_date.timestamp())
+                        , "desc":   m.description
+                        } for m in machines
+                        ]
+        return HttpResponse(json.dumps(machineDicts))
     else:
         return HttpResponse("Unauthorized.", status=401)
 
@@ -70,7 +70,7 @@ def savemachine(request):
         return HttpResponse(json.dumps(saveResponse), status=401)
 
 def loadmachine(request):
-    uuid = request.body
+    uuid = json.loads(request.body)
 
     # ensure the user is logged in and the method is POST
     if request.user.is_authenticated and request.method == "POST":
@@ -78,7 +78,7 @@ def loadmachine(request):
             existing_machine = Machine.objects.get(id=uuid)
             # ensure that the user owns the machine they're trying to edit
             if existing_machine.user == request.user:
-                response_json = { "machine": existing_machine.machine_json, "tape": existing_machine.tape_json}
+                response_json = { "machine": json.loads(existing_machine.machine_json.replace("\'", "\"")), "tape": json.loads(existing_machine.tape_json.replace("\'", "\""))}
                 return HttpResponse(json.dumps(response_json))
             else:
                 fail_response = { "success": False, "uuid": "" }
