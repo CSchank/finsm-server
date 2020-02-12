@@ -59,6 +59,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE_CLASSES = (
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
+)
+
 ROOT_URLCONF = 'finsmproj.urls'
 
 TEMPLATES = [
@@ -85,10 +89,21 @@ WSGI_APPLICATION = 'finsmproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('FINSM_DBNAME'),
+        'USER': os.getenv('FINSM_DBUSER'),
+        'PASSWORD': os.getenv('FINSM_DBPASS'),
+        'HOST': os.getenv('FINSM_DBHOST', 'localhost'),
+        'PORT': os.getenv('FINSM_DBPORT', ''),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation

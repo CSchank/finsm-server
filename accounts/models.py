@@ -6,7 +6,7 @@ from annoying.fields import AutoOneToOneField
 # Create your models here.
 
 class Profile(models.Model):
-    user = AutoOneToOneField(User, on_delete=models.CASCADE)
+    user = AutoOneToOneField(User, primary_key=True, on_delete=models.CASCADE)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
