@@ -23,8 +23,6 @@ def listmachines(request):
         else:
             machines = Machine.objects.filter(user=request.user, archived=False, machine_type=machine_filter).order_by("-edit_date")
 
-        time.sleep(20)
-
         machineDicts = [{ "v":      1
                         , "id":     str(m.uuid)
                         , "name":   m.name
